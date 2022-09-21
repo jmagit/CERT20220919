@@ -20,7 +20,7 @@ public class Demos {
      */
     public static void main(String[] args) {
         var m = new Demos();
-        m.tablas();
+        m.flujo();
     }
 
     public void ejemplos1() {
@@ -79,6 +79,77 @@ public class Demos {
         peque = conNulo;
     }
 
+    public void flujo() {
+        int i = 22;
+        int rslt = 0;
+        switch (i) {
+            case 3:
+                rslt++;
+                System.out.println("tres");
+            case 2, 22:
+                rslt++;
+                System.out.println("dos");
+            case 1:
+            case 11:
+                System.out.println("uno");
+                rslt++;
+            // break;
+//            default:
+//                System.out.println("Otros");
+        }
+        System.out.println(rslt);
+    }
+
+    public void operadores() {
+        int i, j;
+        j = i = 1;
+        double d = divide((double) i, 0) * 0;
+//        System.out.println(i + " " + j);
+        System.out.println(d * 2 + 1);
+        d = 0.1 + 0.2;
+//        if(d == 0.3) {
+//           System.out.println("Si"); 
+//        } else {
+//           System.out.println("NO, es " + (1 - 0.9)); 
+//        }
+        System.out.println(d == 0.3 ? "Si" : "No, es " + d);
+        boolean b;
+        System.out.println((b = true) ? "Si" : "No, es " + d);
+        if (b == false) {
+
+        }
+        if (!b) {
+
+        }
+        Boolean bb = null;
+        if (bb == false) { // bb != null && !bb
+
+        }
+
+        i++;
+        ++i;
+        System.out.println("Auto: " + i++ + " " + i + " " + ++i);
+        i += 2; // i = i + 2;
+        Object o = "Hola mundo";
+        o = 4;
+        if (o instanceof String) {
+            String s = (String) o;
+            System.out.println((s != null && s.length() > 5) ? "Si" : "No");
+        }
+        if (o instanceof String s) {
+            System.out.println((s != null && s.length() > 5) ? "Si" : "No");
+        }
+
+    }
+
+    public int divide(int a, int b) {
+        return a / b;
+    }
+
+    public double divide(double a, double b) {
+        return a / b;
+    }
+
     public void tablas() {
         int[] v = new int[10];
         int i;
@@ -97,10 +168,10 @@ public class Demos {
         m[1] = new int[7];
         m[2] = new int[3];
         i = m[3][1];
-        int v2[] = { 1, 2, 3};
-        v2 = new int[]{ 1, 2, 3};
-        int[][] m2 = {{0,0}, {1,2,3}, {1,7}};
-        
+        int v2[] = {1, 2, 3};
+        v2 = new int[]{1, 2, 3};
+        int[][] m2 = new int[][]{{0, 0}, {1, 2, 3}, {1, 7}};
+
     }
 
     /**
