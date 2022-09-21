@@ -58,3 +58,4 @@ build/
 ### VS Code ###
 .vscode/
 /Demos/nbproject/private/
+/Demos/dist/
