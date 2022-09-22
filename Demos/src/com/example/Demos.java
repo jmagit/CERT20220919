@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.tipos.DiasDeLaSemana;
+import com.example.tipos.DiasLaborables;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,10 @@ public class Demos {
 
     private int algo;
 
+    public double redondeoIEEE(double value) {
+        return (new java.math.BigDecimal(value)).setScale(15, java.math.RoundingMode.HALF_DOWN).doubleValue();
+    }
+
     /**
      * Método principal
      *
@@ -20,7 +26,7 @@ public class Demos {
      */
     public static void main(String[] args) {
         var m = new Demos();
-        m.flujo();
+        m.tipos();
     }
 
     public void ejemplos1() {
@@ -79,6 +85,20 @@ public class Demos {
         peque = conNulo;
     }
 
+    public void tipos() {
+        DiasDeLaSemana d = DiasDeLaSemana.LUNES;
+        if(d == DiasDeLaSemana.DOMINGO) {}
+         System.out.println(d);
+         d = DiasDeLaSemana.valueOf("DOMINGO");
+         System.out.println(d);
+       
+        // d = DiasLaborables.LUNES;
+        DiasLaborables dia = DiasLaborables.JUEVES;
+        int i = dia.getValor();
+        System.out.println(i);
+        dia = DiasLaborables.getEnum(2);
+        System.out.println(dia);
+    }
     public void flujo() {
         int i = 22;
         int rslt = 0;
@@ -98,6 +118,92 @@ public class Demos {
 //                System.out.println("Otros");
         }
         System.out.println(rslt);
+        System.out.println(redondeoIEEE(0.1 + 0.2));
+        System.out.println(redondeoIEEE(1.0 - 0.9));
+
+        String s;
+        i = 2;
+        s = switch (i) {
+            case 0:
+                yield "ningun";
+            case 1:
+                yield "un";
+            case 2:
+                yield "dos";
+            default:
+                yield "muchos";
+        } + " elemento" + (i > 1 ? "s" : "");
+
+        s = switch (i) {
+            case 0 ->
+                "ningun";
+            case 1 ->
+                "un";
+            case 2 ->
+                "dos";
+            default ->
+                "muchos";
+        }
+                + " elemento" + (i > 1 ? "s" : "");
+
+        System.out.println(s);
+//        Object o = null;
+//        s = switch(o) {
+//            case null: yield "vacio";
+//            case String cad: yield "cadena: " + cad;
+//            case Integer ent: yield "entero: " + ent.toString();
+//            default: yield "no se";
+//        } + " tipo";
+//        System.out.println(s);
+        int t[] = {1, 2, 3, 4, 5};
+//        for(int ind = 0, factor = 10; ind < t.length; ind++, factor--) {
+//            System.out.println(ind + "->" + t[ind] * factor);
+//        }
+        for (int ind = 0; ind < t.length; ind += 2) {
+            System.out.println(ind + "->" + t[ind]);
+        }
+        for (int ele : t) {
+            System.out.println(ele);
+        }
+
+//        padre:
+//        while (true) {
+//            switch (i) {
+//                case 3:
+//                    rslt++;
+//                    System.out.println("tres");
+//                case 2, 22:
+//                    rslt++;
+//                    System.out.println("dos");
+//                case 1:
+//                case 11:
+//                    System.out.println("uno");
+//                    rslt++;
+//                    break padre;
+//            }
+//
+//            while (true) {
+//                // ...
+//                if (cond) {
+//                    break;
+//                }
+//                // ...
+//                if (cond2) {
+//                    break padre;
+//                }
+//                // ...
+//                if (cond) {
+//                    continue;
+//                }
+//                if (cond2) {
+//                    continue;
+//
+//                }
+//                if (cond3) {
+//                    continue;
+//                }
+//            }
+//        }
     }
 
     public void operadores() {
