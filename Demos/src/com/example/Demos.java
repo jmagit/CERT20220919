@@ -1,7 +1,11 @@
 package com.example;
 
+import com.example.tipos.Alumnos;
+import com.example.tipos.Calculadora;
 import com.example.tipos.DiasDeLaSemana;
 import com.example.tipos.DiasLaborables;
+import com.example.tipos.Persona;
+import com.example.tipos.Profesor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +19,6 @@ public class Demos {
 
     private int algo;
 
-    public double redondeoIEEE(double value) {
-        return (new java.math.BigDecimal(value)).setScale(15, java.math.RoundingMode.HALF_DOWN).doubleValue();
-    }
-
     /**
      * Método principal
      *
@@ -26,7 +26,7 @@ public class Demos {
      */
     public static void main(String[] args) {
         var m = new Demos();
-        m.tipos();
+        m.clases();
     }
 
     public void ejemplos1() {
@@ -85,6 +85,19 @@ public class Demos {
         peque = conNulo;
     }
 
+    public void clases() {
+        Profesor p = new Profesor();
+        var a = new Alumnos();
+        
+        var calc = new Calculadora();
+        System.out.println(calc.suma(0.1, 0.2));
+        System.out.println(calc.resta(1, 0.9));
+        System.out.println(calc.avg(1, 2, 3, 4, 5));
+        System.out.println(calc.avg(1, 2));
+        System.out.println(calc.avg(1, 2, 3));
+        System.out.println(Calculadora.divide(2, 2));
+       
+    }
     public void tipos() {
         DiasDeLaSemana d = DiasDeLaSemana.LUNES;
         if(d == DiasDeLaSemana.DOMINGO) {}
@@ -118,8 +131,6 @@ public class Demos {
 //                System.out.println("Otros");
         }
         System.out.println(rslt);
-        System.out.println(redondeoIEEE(0.1 + 0.2));
-        System.out.println(redondeoIEEE(1.0 - 0.9));
 
         String s;
         i = 2;
