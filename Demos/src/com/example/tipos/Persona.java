@@ -5,6 +5,7 @@
 package com.example.tipos;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -18,7 +19,7 @@ public abstract class Persona {
     private String nombre;
     private LocalDate fechaNacimiento;
     private LocalDate fechaBaja;
-    private transient int edad;
+    private transient int edad = -1;
     private boolean activo = true;
 
     public Persona() {
@@ -26,10 +27,13 @@ public abstract class Persona {
         fechaBaja = null;
     }
     public Persona(int id, String nombre, String estado) {
-        this.id = id;
+//        this.id = id;
+        setId(id);
         this.nombre = nombre;
         this.estado = estado;
     }
+    
+    public abstract void hacerExamen();
     
     public int getId() {
         return id;
@@ -53,7 +57,24 @@ public abstract class Persona {
     public boolean isJubilado() {
         return !activo && edad >= EDAD_JUBILACION;
     }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        var hoy = LocalDate.now();
+        if(fechaNacimiento == null || fechaNacimiento.isAfter(hoy))
+            throw new IllegalArgumentException("Tiene que ser una fecha pasada");
+        this.fechaNacimiento = fechaNacimiento;
+        this.edad = (int)fechaNacimiento.until(hoy, ChronoUnit.YEARS);
+    }
     
+    public int getEdad() throws Exception {
+        if(edad == -1)
+            throw new Exception("No conozco la fecha de nacimiento");
+        return edad;
+    }
     public void jubilate() {
         activo = false;
         fechaBaja = LocalDate.now();

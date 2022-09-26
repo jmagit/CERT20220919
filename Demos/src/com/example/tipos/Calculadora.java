@@ -41,12 +41,6 @@ public class Calculadora {
         return redondeoIEEE(a / b);
     }
     
-    public double avg(double a, double b, double... otros) {
-        double rslt = a + b;
-        for(double valor: otros)
-            rslt += valor;
-        return redondeoIEEE(rslt / (otros.length + 2));
-    }
     public double avg(double a, double b) {
         double rslt = a - b;
         return redondeoIEEE(rslt);
@@ -54,6 +48,19 @@ public class Calculadora {
     public double avg(double a, double b, double c) {
         double rslt = a - b - c;
         return redondeoIEEE(rslt);
+    }
+//    public double avg(double a, double b, double... otros) {
+//        double rslt = a + b;
+//        for(double valor: otros)
+//            rslt += valor;
+//        return redondeoIEEE(rslt / (otros.length + 2));
+//    }
+    public double avg(double... otros) {
+        if(otros.length == 0) return 0;
+        double rslt = 0;
+        for(double valor: otros)
+            rslt += valor;
+        return redondeoIEEE(rslt / otros.length);
     }
 
 }

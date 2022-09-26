@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.tipos.Alumnos;
+import com.example.tipos.Alumno;
 import com.example.tipos.Calculadora;
 import com.example.tipos.DiasDeLaSemana;
 import com.example.tipos.DiasLaborables;
@@ -29,66 +29,10 @@ public class Demos {
         m.clases();
     }
 
-    public void ejemplos1() {
-        int i, j, k = 0;
-        j = 0;
-        i = j + k;
-        final int id;
-        id = i + 23 * j * k;
-
-        boolean b = true;
-        b = false;
-        b = i < j;
-
-        char a = '9';
-        a = (char) (a + 1);
-        System.out.println(a);
-        i = '2' + 1;
-        a = '9';
-        i = (a - '0') + 1;
-        System.out.println(i);
-
-        String s = "cadena", ss = null;
-        System.out.println(s.length());
-
-        var x = 4;
-        var xx = "4";
-        x = 4;
-        Demos l = new Demos();
-        if (true) {
-            var x1 = "ff";
-            x1 = s;
-        }
-
-        short peque = 1;
-        int grande = 1;
-
-        grande = peque;
-        peque = (short) grande;
-        s = "4";
-        i = Integer.parseInt(s);
-
-        List<String> list = new ArrayList<String>();
-//        if(list instanceof ArrayList) {
-        ((ArrayList) list).clear();
-//        }
-        Object o = null;
-        o = "dd";
-        o = list;
-        o = 4; // new Integer(4)
-        System.out.println(o.getClass().getName());
-        i = (int) o; // o.getValue()
-        System.out.println(i);
-        Short conNulo = 0;
-        conNulo = null;
-        i = conNulo + 1;
-        peque = conNulo;
-    }
-
     public void clases() {
         Profesor p = new Profesor();
-        var a = new Alumnos();
-        
+        var a = new Alumno(5);
+        a.setFechaNacimiento(null);
         var calc = new Calculadora();
         System.out.println(calc.suma(0.1, 0.2));
         System.out.println(calc.resta(1, 0.9));
@@ -215,6 +159,62 @@ public class Demos {
 //                }
 //            }
 //        }
+    }
+
+    public void ejemplos1() {
+        int i, j, k = 0;
+        j = 0;
+        i = j + k;
+        final int id;
+        id = i + 23 * j * k;
+
+        boolean b = true;
+        b = false;
+        b = i < j;
+
+        char a = '9';
+        a = (char) (a + 1);
+        System.out.println(a);
+        i = '2' + 1;
+        a = '9';
+        i = (a - '0') + 1;
+        System.out.println(i);
+
+        String s = "cadena", ss = null;
+        System.out.println(s.length());
+
+        var x = 4;
+        var xx = "4";
+        x = 4;
+        Demos l = new Demos();
+        if (true) {
+            var x1 = "ff";
+            x1 = s;
+        }
+
+        short peque = 1;
+        int grande = 1;
+
+        grande = peque;
+        peque = (short) grande;
+        s = "4";
+        i = Integer.parseInt(s);
+
+        List<String> list = new ArrayList<String>();
+//        if(list instanceof ArrayList) {
+        ((ArrayList) list).clear();
+//        }
+        Object o = null;
+        o = "dd";
+        o = list;
+        o = 4; // new Integer(4)
+        System.out.println(o.getClass().getName());
+        i = (int) o; // o.getValue()
+        System.out.println(i);
+        Short conNulo = 0;
+        conNulo = null;
+        i = conNulo + 1;
+        peque = conNulo;
     }
 
     public void operadores() {
