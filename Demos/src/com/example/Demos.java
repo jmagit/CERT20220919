@@ -4,6 +4,7 @@ import com.example.tipos.Alumno;
 import com.example.tipos.Calculadora;
 import com.example.tipos.DiasDeLaSemana;
 import com.example.tipos.DiasLaborables;
+import com.example.tipos.Factura;
 import com.example.tipos.Persona;
 import com.example.tipos.Profesor;
 import java.util.ArrayList;
@@ -36,6 +37,12 @@ public class Demos {
     }
 
     public void clases() {
+        Factura f = new Factura();
+        Factura.Linea ln = f.getLinea(0);
+        if(f.getNumero() == ln.getFactura()) {}
+        f.setNumero(1);
+        if(f.getNumero() == ln.getFactura()) {}
+
         Profesor p = new Profesor();
         var a = new Alumno(5);
         // a.setFechaNacimiento(null);
