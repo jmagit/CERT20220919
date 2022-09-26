@@ -27,12 +27,18 @@ public class Demos {
     public static void main(String[] args) {
         var m = new Demos();
         m.clases();
+        System.out.println("Salgo m.clase");
+        System.runFinalization();
+        System.out.println("Sigue sin finalizar");
+        System.gc();
+        System.out.println("Mando recolectar la basura");
+        
     }
 
     public void clases() {
         Profesor p = new Profesor();
         var a = new Alumno(5);
-        a.setFechaNacimiento(null);
+        // a.setFechaNacimiento(null);
         var calc = new Calculadora();
         System.out.println(calc.suma(0.1, 0.2));
         System.out.println(calc.resta(1, 0.9));

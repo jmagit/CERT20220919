@@ -63,4 +63,10 @@ public class Calculadora {
         return redondeoIEEE(rslt / otros.length);
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("com.example.tipos.Calculadora.finalize()");
+        super.finalize(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
 }

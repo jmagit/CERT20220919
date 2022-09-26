@@ -79,4 +79,5 @@ public abstract class Persona {
         activo = false;
         fechaBaja = LocalDate.now();
     }
+    
 }
