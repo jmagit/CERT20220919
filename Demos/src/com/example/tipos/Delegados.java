@@ -13,17 +13,51 @@ import org.w3c.dom.Text;
 public class Delegados {
 
     String tabla[];
-
-    public void proceso() {
-        // ordena(tabla);
-    }
-
-    enum Tipo {
-        TEXT, BIN, TEXT_DESC, BIN_DESC
-    }
-
+    Persona lista[];
+    
     abstract class Comparador {
         abstract int compara(String s1, String s2);
+    }
+
+
+    public void proceso() {
+        final int desc = -1;
+        var comp = new Comparador() {
+            @Override
+            int compara(String s1, String s2) {
+                return desc * s1.compareTo(s2);
+            }
+        };
+        ordena(tabla, new Comparador() {
+            @Override
+            int compara(String s1, String s2) {
+                return s1.compareTo(s2);
+            }
+        });
+        
+    }
+
+    public void proceso1() {
+        class ComparaBinAsc extends Comparador {
+            @Override
+            int compara(String s1, String s2) {
+                return s1.compareTo(s2);
+            }
+        }
+        var comp = new ComparaBinAsc();
+        ordena(tabla, comp);
+        
+    }
+    public void proceso2() {
+        class ComparaTexrAsc extends Comparador {
+            @Override
+            int compara(String s1, String s2) {
+                return s1.compareToIgnoreCase(s2);
+            }
+        }
+        var comp = new ComparaTexrAsc();
+        ordena(tabla, comp);
+        
     }
 
     private void ordena(String[] t, Comparador comp) {
@@ -37,6 +71,10 @@ public class Delegados {
 
         }
         // ...
+    }
+
+    enum Tipo {
+        TEXT, BIN, TEXT_DESC, BIN_DESC
     }
 
     /*    

@@ -8,15 +8,6 @@ package com.example.tipos;
  *
  * @author Javier
  */
-public interface Calculadora {
-
-    double divide(double a, double b);
-
-    double multiplica(double a, double b);
-
-    double resta(double a, double b);
-
-    double suma(double a, double b);
-    double avg(double a, double b);
-    
+public interface GraficoImprimible extends Grafico, Imprimible {
+    void dime();
 }

@@ -8,15 +8,10 @@ package com.example.tipos;
  *
  * @author Javier
  */
-public interface Calculadora {
-
-    double divide(double a, double b);
-
-    double multiplica(double a, double b);
-
-    double resta(double a, double b);
-
-    double suma(double a, double b);
-    double avg(double a, double b);
-    
+public interface Grafico {
+    void pintate();
+    default void dime() {
+        System.out.println("Hola mudo");
+        pintate();
+    }
 }

@@ -16,7 +16,7 @@ public class Alumno extends Persona {
     }
     
     public double calificacion() {
-        var calc = new Calculadora();
+        var calc = new CalculadoraImpl();
         return calc.avg(notas);
     }
 

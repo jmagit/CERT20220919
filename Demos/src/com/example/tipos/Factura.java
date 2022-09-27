@@ -5,12 +5,19 @@
 package com.example.tipos;
 
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Javier
  */
-public class Factura {
+public class Factura implements Cloneable, Grafico {
+
+    @Override
+    public void pintate() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     public static enum Estado {
         EMITIDA, RECIBIDA, CANCELADA, PAGADA
@@ -19,7 +26,7 @@ public class Factura {
     public static class DireccionFactura extends Direccion {
     }
 
-    public class Linea {
+    public class Linea implements Cloneable {
 
         private String producto;
         private int catidad;
@@ -58,6 +65,19 @@ public class Factura {
         public int getFactura() {
             return numero;
         }
+
+        @Override
+        public Linea clone() {
+            Linea clon = null;
+            try { 
+                clon = (Linea)super.clone();
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(Factura.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return clon;
+        }
+        
+        
     }
 
     private int numero;
@@ -112,7 +132,7 @@ public class Factura {
     }
 
     public Linea getLinea(int indice) {
-        return lineas[indice]; // clonar
+        return lineas[indice].clone(); // clonar
     }
 
     public void addLinea(String producto, int catidad, double precioUnitario) {
@@ -125,4 +145,16 @@ public class Factura {
         this.lineas[0] = linea;
     }
 
+    @Override
+    public Factura clone() throws CloneNotSupportedException {
+        var copia = (Factura)super.clone();
+//        if(this.cliente instanceof Cloneable clon)
+//            copia.cliente = clon.clone();
+//        else 
+//            copia.cliente = this.cliente;
+           
+        return (Factura)super.clone(); 
+    }
+
+    
 }

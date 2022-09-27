@@ -2,9 +2,14 @@ package com.example;
 
 import com.example.tipos.Alumno;
 import com.example.tipos.Calculadora;
+import com.example.tipos.CalculadoraCientificaImpl;
+import com.example.tipos.CalculadoraImpl;
+import com.example.tipos.Contable;
 import com.example.tipos.DiasDeLaSemana;
 import com.example.tipos.DiasLaborables;
 import com.example.tipos.Factura;
+import com.example.tipos.Grafico;
+import com.example.tipos.GraficoImprimible;
 import com.example.tipos.Persona;
 import com.example.tipos.Profesor;
 import java.util.ArrayList;
@@ -46,14 +51,25 @@ public class Demos {
         Profesor p = new Profesor();
         var a = new Alumno(5);
         // a.setFechaNacimiento(null);
-        var calc = new Calculadora();
+        Calculadora calc = new CalculadoraCientificaImpl();
+        calc = new Contable();
         System.out.println(calc.suma(0.1, 0.2));
         System.out.println(calc.resta(1, 0.9));
-        System.out.println(calc.avg(1, 2, 3, 4, 5));
-        System.out.println(calc.avg(1, 2));
-        System.out.println(calc.avg(1, 2, 3));
-        System.out.println(Calculadora.divide(2, 2));
-       
+//        System.out.println(calc.avg(1, 2, 3, 4, 5));
+//        System.out.println(calc.avg(1, 2));
+//        System.out.println(calc.avg(1, 2, 3));
+//        System.out.println(Calculadora.divide(2, 2));
+        Object o;
+        Grafico g = new Factura();
+        o = g;
+        g.pintate();
+        g = new CalculadoraCientificaImpl();
+        g.pintate();
+        if(o instanceof Grafico x)
+            x.pintate();
+        if(o instanceof Calculadora x)
+            x.suma(2, 2);
+        GraficoImprimible gi;
     }
     public void tipos() {
         DiasDeLaSemana d = DiasDeLaSemana.LUNES;
