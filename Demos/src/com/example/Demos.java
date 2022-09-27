@@ -8,6 +8,7 @@ import com.example.tipos.Contable;
 import com.example.tipos.DiasDeLaSemana;
 import com.example.tipos.DiasLaborables;
 import com.example.tipos.Factura;
+import com.example.tipos.Genericos;
 import com.example.tipos.Grafico;
 import com.example.tipos.GraficoImprimible;
 import com.example.tipos.Persona;
@@ -32,15 +33,43 @@ public class Demos {
      */
     public static void main(String[] args) {
         var m = new Demos();
-        m.clases();
-        System.out.println("Salgo m.clase");
-        System.runFinalization();
-        System.out.println("Sigue sin finalizar");
-        System.gc();
-        System.out.println("Mando recolectar la basura");
+        m.genericos();
+//        System.out.println("Salgo m.clase");
+//        System.runFinalization();
+//        System.out.println("Sigue sin finalizar");
+//        System.gc();
+//        System.out.println("Mando recolectar la basura");
         
     }
 
+    <T> T demo(T param) {
+        return param;
+    }
+    <T> T demo(String s, Class<T> tipo) {
+        return null;
+    }
+    
+    public void genericos() {
+//        Genericos.Elemento[] lista = new Genericos.Elemento[10];
+//        lista[0] = new Genericos.Elemento(8, "Barcelona");
+//        lista[1] = new Genericos.Elemento(28, "Madrid");
+//        lista[2] = new Genericos.Elemento("28", "Madrid");
+//        lista[3] = new Genericos.Elemento('M', "Madrid");
+//        
+//        var e = new Genericos.Elemento('M', "Masculino");
+//        Genericos.Elemento<Integer, String>[] lista = new Genericos.Elemento[10];
+//        lista[0] = new Genericos.Elemento<Integer, String>(8, "Barcelona");
+//        lista[2] = new Genericos.Elemento<Integer, String>("28", "Madrid");
+//        Genericos.Elemento<Character, String> e = new Genericos.Elemento('M', "Masculino");
+//        e = new Genericos.Elemento<Integer, String>("28", "Madrid");
+//        String s = demo("Hola", String.class);
+//        int i = demo("1", Integer.class);
+        
+//        Genericos.Lista<Persona> lst = new Genericos.Lista<Persona>();
+        Genericos.Lista<Alumno> lst = new Genericos.Lista<>();
+        lst.add(new Alumno(5));
+//        lst.add(new Contable());
+    }
     public void clases() {
         Factura f = new Factura();
         Factura.Linea ln = f.getLinea(0);
