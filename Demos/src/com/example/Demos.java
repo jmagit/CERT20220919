@@ -87,15 +87,16 @@ public class Demos {
             var c = new Contable("", "");
 //                c.setFechaNacimiento(LocalDate.of(2000, 12, 1));
             var fn = c.dameFechaNacimiento();
-            if (c.hasFechaNacimiento()) {
+//            if (c.hasFechaNacimiento()) {
                 var fn2 = c.getFechaNacimiento();
-            }
+//            }
             if (fn.isEmpty()) {
                 System.out.println("No lo se");
             } else {
                 System.out.println(fn.get().toString() + " Edad: " + c.getEdad());
             }
         } catch (Exception ex) {
+            System.out.println("ERROR: " + ex.getMessage());
             Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
         }
         Profesor p = new Profesor();
@@ -110,11 +111,11 @@ public class Demos {
             } catch (CalculadoraException ex) {
                 Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
             }
-//            try {
-//            System.out.println(((CalculadoraImpl) calc).divide(0, 0));
-//            } catch (CalculadoraException ex) {
-//                Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            try {
+            System.out.println(((CalculadoraImpl) calc).divide(0, 0));
+            } catch (CalculadoraException ex) {
+                Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (Exception ex) {
             Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
         }

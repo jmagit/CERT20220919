@@ -95,6 +95,7 @@ public abstract class Persona {
             throw new Exception("No conozco la fecha de nacimiento");
         return edad;
     }
+    
     public void jubilate() {
         activo = false;
         fechaBaja = LocalDate.now();

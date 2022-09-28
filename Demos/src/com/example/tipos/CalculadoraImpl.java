@@ -5,12 +5,16 @@
 package com.example.tipos;
 
 import com.example.exceptions.CalculadoraException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Javier
  */
 public class CalculadoraImpl implements Calculadora, GraficoImprimible, AutoCloseable {
+
+    private static final Logger LOG = Logger.getLogger(CalculadoraImpl.class.getName());
 
     private static double redondeoIEEE(double value) {
         return (new java.math.BigDecimal(value)).setScale(15, java.math.RoundingMode.HALF_DOWN).doubleValue();
@@ -25,11 +29,13 @@ public class CalculadoraImpl implements Calculadora, GraficoImprimible, AutoClos
      */
     @Override
     public double suma(double a, double b) {
+        LOG.log(Level.INFO, "Suma " + a + " + " + b);
         return redondeoIEEE(a + b);
     }
 
     @Override
     public double resta(double a, double b) {
+        LOG.log(Level.INFO, "Resta " + a + " - " + b);
         return redondeoIEEE(a - b);
     }
 
@@ -38,18 +44,23 @@ public class CalculadoraImpl implements Calculadora, GraficoImprimible, AutoClos
         return redondeoIEEE(a * b);
     }
 
+    @Deprecated
     public int divide(int a, int b) throws CalculadoraException {
+        LOG.log(Level.INFO, "Divide enteros " + a + " / " + b);
         try {
             return a / b;
         } catch (Exception ex) {
+            LOG.log(Level.SEVERE, "ERROR " + ex.toString());
             throw new CalculadoraException("Error al dividir", ex);
         }
     }
 
     @Override
     public double divide(double a, double b) throws CalculadoraException {
-        if(b == 0)
+        if(b == 0) {
+            LOG.log(Level.SEVERE, "ERROR Divde by 0" );
             throw new CalculadoraException("Divde by 0");
+        }
         return redondeoIEEE(a / b);
     }
 

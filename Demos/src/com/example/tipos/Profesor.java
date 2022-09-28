@@ -16,8 +16,10 @@ public class Profesor extends Persona{
         this.salario = salario;
         // ...
     }
+
     private double finiquito;
     
+    @Override
     public void jubilate() {
         
         // ...
