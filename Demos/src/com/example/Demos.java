@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.exceptions.CalculadoraException;
 import com.example.tipos.Alumno;
 import com.example.tipos.Calculadora;
 import com.example.tipos.CalculadoraCientificaImpl;
@@ -13,8 +14,11 @@ import com.example.tipos.Grafico;
 import com.example.tipos.GraficoImprimible;
 import com.example.tipos.Persona;
 import com.example.tipos.Profesor;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase principal para las demos
@@ -33,22 +37,23 @@ public class Demos {
      */
     public static void main(String[] args) {
         var m = new Demos();
-        m.genericos();
+        m.clases();
 //        System.out.println("Salgo m.clase");
 //        System.runFinalization();
 //        System.out.println("Sigue sin finalizar");
 //        System.gc();
 //        System.out.println("Mando recolectar la basura");
-        
+
     }
 
     <T> T demo(T param) {
         return param;
     }
+
     <T> T demo(String s, Class<T> tipo) {
         return null;
     }
-    
+
     public void genericos() {
 //        Genericos.Elemento[] lista = new Genericos.Elemento[10];
 //        lista[0] = new Genericos.Elemento(8, "Barcelona");
@@ -64,49 +69,83 @@ public class Demos {
 //        e = new Genericos.Elemento<Integer, String>("28", "Madrid");
 //        String s = demo("Hola", String.class);
 //        int i = demo("1", Integer.class);
-        
+
 //        Genericos.Lista<Persona> lst = new Genericos.Lista<Persona>();
         Genericos.Lista<Alumno> lst = new Genericos.Lista<>();
         lst.add(new Alumno(5));
 //        lst.add(new Contable());
     }
-    public void clases() {
-        Factura f = new Factura();
-        Factura.Linea ln = f.getLinea(0);
-        if(f.getNumero() == ln.getFactura()) {}
-        f.setNumero(1);
-        if(f.getNumero() == ln.getFactura()) {}
 
+    public void clases() {
+//        Factura f = new Factura();
+//        Factura.Linea ln = f.getLinea(0);
+//        if(f.getNumero() == ln.getFactura()) {}
+//        f.setNumero(1);
+//        if(f.getNumero() == ln.getFactura()) {}
+
+        try {
+            var c = new Contable("", "");
+//                c.setFechaNacimiento(LocalDate.of(2000, 12, 1));
+            var fn = c.dameFechaNacimiento();
+            if (c.hasFechaNacimiento()) {
+                var fn2 = c.getFechaNacimiento();
+            }
+            if (fn.isEmpty()) {
+                System.out.println("No lo se");
+            } else {
+                System.out.println(fn.get().toString() + " Edad: " + c.getEdad());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Profesor p = new Profesor();
         var a = new Alumno(5);
         // a.setFechaNacimiento(null);
-        Calculadora calc = new CalculadoraCientificaImpl();
-        calc = new Contable();
-        System.out.println(calc.suma(0.1, 0.2));
-        System.out.println(calc.resta(1, 0.9));
+        try ( var calc = new CalculadoraCientificaImpl()) {
+
+            System.out.println(calc.suma(0.1, 0.2));
+            System.out.println(calc.resta(1, 0.9));
+            try {
+                System.out.println(calc.divide(1.0, 0.0));
+            } catch (CalculadoraException ex) {
+                Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//            try {
+//            System.out.println(((CalculadoraImpl) calc).divide(0, 0));
+//            } catch (CalculadoraException ex) {
+//                Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+        } catch (Exception ex) {
+            Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Se ha cerrado");
 //        System.out.println(calc.avg(1, 2, 3, 4, 5));
 //        System.out.println(calc.avg(1, 2));
 //        System.out.println(calc.avg(1, 2, 3));
 //        System.out.println(Calculadora.divide(2, 2));
-        Object o;
-        Grafico g = new Factura();
-        o = g;
-        g.pintate();
-        g = new CalculadoraCientificaImpl();
-        g.pintate();
-        if(o instanceof Grafico x)
-            x.pintate();
-        if(o instanceof Calculadora x)
-            x.suma(2, 2);
-        GraficoImprimible gi;
+//        Object o;
+//        Grafico g = new Factura();
+//        o = g;
+//        g.pintate();
+//        g = new CalculadoraCientificaImpl();
+//        g.pintate();
+//        if (o instanceof Grafico x) {
+//            x.pintate();
+//        }
+//        if (o instanceof Calculadora x) {
+//            x.suma(2, 2);
+//        }
+//        GraficoImprimible gi;
     }
+
     public void tipos() {
         DiasDeLaSemana d = DiasDeLaSemana.LUNES;
-        if(d == DiasDeLaSemana.DOMINGO) {}
-         System.out.println(d);
-         d = DiasDeLaSemana.valueOf("DOMINGO");
-         System.out.println(d);
-       
+        if (d == DiasDeLaSemana.DOMINGO) {
+        }
+        System.out.println(d);
+        d = DiasDeLaSemana.valueOf("DOMINGO");
+        System.out.println(d);
+
         // d = DiasLaborables.LUNES;
         DiasLaborables dia = DiasLaborables.JUEVES;
         int i = dia.getValor();
@@ -114,6 +153,7 @@ public class Demos {
         dia = DiasLaborables.getEnum(2);
         System.out.println(dia);
     }
+
     public void flujo() {
         int i = 22;
         int rslt = 0;

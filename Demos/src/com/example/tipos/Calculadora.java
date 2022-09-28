@@ -4,13 +4,15 @@
  */
 package com.example.tipos;
 
+import com.example.exceptions.CalculadoraException;
+
 /**
  *
  * @author Javier
  */
 public interface Calculadora {
 
-    double divide(double a, double b);
+    double divide(double a, double b) throws CalculadoraException;
 
     double multiplica(double a, double b);
 

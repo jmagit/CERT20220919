@@ -4,11 +4,13 @@
  */
 package com.example.tipos;
 
+import com.example.exceptions.CalculadoraException;
+
 /**
  *
  * @author Javier
  */
-public class CalculadoraImpl implements Calculadora, GraficoImprimible {
+public class CalculadoraImpl implements Calculadora, GraficoImprimible, AutoCloseable {
 
     private static double redondeoIEEE(double value) {
         return (new java.math.BigDecimal(value)).setScale(15, java.math.RoundingMode.HALF_DOWN).doubleValue();
@@ -36,19 +38,26 @@ public class CalculadoraImpl implements Calculadora, GraficoImprimible {
         return redondeoIEEE(a * b);
     }
 
-    public int divide(int a, int b) {
-        return a / b;
+    public int divide(int a, int b) throws CalculadoraException {
+        try {
+            return a / b;
+        } catch (Exception ex) {
+            throw new CalculadoraException("Error al dividir", ex);
+        }
     }
 
     @Override
-    public double divide(double a, double b) {
+    public double divide(double a, double b) throws CalculadoraException {
+        if(b == 0)
+            throw new CalculadoraException("Divde by 0");
         return redondeoIEEE(a / b);
     }
-    
+
     public double avg(double a, double b) {
         double rslt = a - b;
         return redondeoIEEE(rslt);
     }
+
     public double avg(double a, double b, double c) {
         double rslt = a - b - c;
         return redondeoIEEE(rslt);
@@ -59,11 +68,15 @@ public class CalculadoraImpl implements Calculadora, GraficoImprimible {
 //            rslt += valor;
 //        return redondeoIEEE(rslt / (otros.length + 2));
 //    }
+
     public double avg(double... otros) {
-        if(otros.length == 0) return 0;
+        if (otros.length == 0) {
+            return 0;
+        }
         double rslt = 0;
-        for(double valor: otros)
+        for (double valor : otros) {
             rslt += valor;
+        }
         return redondeoIEEE(rslt / otros.length);
     }
 
@@ -84,6 +97,11 @@ public class CalculadoraImpl implements Calculadora, GraficoImprimible {
     }
 
     public void dime() {
-        
+
+    }
+
+    @Override
+    public void close() {
+        System.out.println("com.example.tipos.Calculadora.close()");
     }
 }

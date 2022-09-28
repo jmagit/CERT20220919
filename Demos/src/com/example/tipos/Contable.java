@@ -10,6 +10,12 @@ package com.example.tipos;
  */
 public class Contable extends Persona implements Calculadora {
 
+    public Contable(String nombre, String estado) {
+        super(1, "", "");
+        if(nombre == null)
+            throw new IllegalArgumentException("el nombre no puede ser nulo");
+        assert estado != null : "el estado no puede ser nulo";
+   }
     @Override
     public void hacerExamen() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

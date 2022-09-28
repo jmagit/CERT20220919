@@ -4,8 +4,10 @@
  */
 package com.example.tipos;
 
+import com.example.exceptions.DemosException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 /**
  *
@@ -26,9 +28,16 @@ public abstract class Persona {
         this(0, "Anonimo", "sin estado");
         fechaBaja = null;
     }
-    public Persona(int id, String nombre, String estado) {
-//        this.id = id;
+    public Persona(int id) {
         setId(id);
+        this.estado = "sin estado";
+    }
+    
+    public Persona(int id, String nombre, String estado) {
+        setId(id);
+        if(nombre == null)
+            throw new IllegalArgumentException("el nombre no puede ser nulo");
+        assert estado != null;
         this.nombre = nombre;
         this.estado = estado;
     }
@@ -58,8 +67,18 @@ public abstract class Persona {
         return !activo && edad >= EDAD_JUBILACION;
     }
 
-    public LocalDate getFechaNacimiento() {
+    public boolean hasFechaNacimiento() {
+        return fechaNacimiento != null;
+    }
+
+    public LocalDate getFechaNacimiento() throws DemosException {
+        if(fechaNacimiento == null)
+           throw new DemosException("No tengo la fecha de nacimiento");
         return fechaNacimiento;
+    }
+
+    public Optional<LocalDate> dameFechaNacimiento() {
+        return Optional.ofNullable(fechaNacimiento);
     }
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
@@ -68,6 +87,7 @@ public abstract class Persona {
             throw new IllegalArgumentException("Tiene que ser una fecha pasada");
         this.fechaNacimiento = fechaNacimiento;
         this.edad = (int)fechaNacimiento.until(hoy, ChronoUnit.YEARS);
+        assert edad >= 0;
     }
     
     public int getEdad() throws Exception {
