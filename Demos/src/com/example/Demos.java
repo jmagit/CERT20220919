@@ -14,9 +14,17 @@ import com.example.tipos.Grafico;
 import com.example.tipos.GraficoImprimible;
 import com.example.tipos.Persona;
 import com.example.tipos.Profesor;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +35,8 @@ import java.util.logging.Logger;
  * @version 0.1
  */
 public class Demos {
-
+    private static final PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+    
     private int algo;
 
     /**
@@ -37,13 +46,39 @@ public class Demos {
      */
     public static void main(String[] args) {
         var m = new Demos();
-        m.clases();
+        m.colecciones();
 //        System.out.println("Salgo m.clase");
 //        System.runFinalization();
 //        System.out.println("Sigue sin finalizar");
 //        System.gc();
 //        System.out.println("Mando recolectar la basura");
 
+    }
+    
+    public void colecciones() {
+        //Set<Persona> lista = new HashSet<>();
+        List<Persona> lista = new CopyOnWriteArrayList<>();
+        lista.add(new Alumno(1, "Pepito"));
+        lista.add(new Alumno(2, "Fulanito"));
+        lista.add(0,new Profesor(3, "Fulanito",2000));
+        if(lista.add(new Alumno(2, "Menganito")))
+            out.println("Añadido");
+        
+        System.out.println("Lista: " + lista.size());
+        for (Persona p: lista)
+            System.out.println(p);
+        if(lista.contains(new Alumno(2, "Menganitooooo")))
+             out.println("Si lo tiene");
+        out.println(lista.get(2));
+        
+        Map<Integer, Persona> store = new TreeMap<>();
+        store.put(1, new Alumno(1, "Pepito"));
+        store.put(2, new Alumno(2, "Fulanito"));
+        store.put(33,new Profesor(3, "Fulanito",2000));
+        store.put(33, new Alumno(2, "Menganito"));
+        out.println(store.get(33));
+      
+           
     }
 
     <T> T demo(T param) {
@@ -54,7 +89,18 @@ public class Demos {
         return null;
     }
 
+    public String cadenas(int longitud) {
+//        String s = "";
+        StringBuilder sb = new StringBuilder("");
+        for(int i = 0; i < longitud; i++) {
+//            s += " ";
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
     public void genericos() {
+        var s = cadenas(100);
+        
 //        Genericos.Elemento[] lista = new Genericos.Elemento[10];
 //        lista[0] = new Genericos.Elemento(8, "Barcelona");
 //        lista[1] = new Genericos.Elemento(28, "Madrid");
@@ -72,7 +118,7 @@ public class Demos {
 
 //        Genericos.Lista<Persona> lst = new Genericos.Lista<Persona>();
         Genericos.Lista<Alumno> lst = new Genericos.Lista<>();
-        lst.add(new Alumno(5));
+        lst.add(new Alumno(2, "Pepito", 5));
 //        lst.add(new Contable());
     }
 
@@ -99,8 +145,8 @@ public class Demos {
             System.out.println("ERROR: " + ex.getMessage());
             Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Profesor p = new Profesor();
-        var a = new Alumno(5);
+        Profesor p = new Profesor(1, "Profe", 1000);
+        var a = new Alumno(2, "Pepito", 5);
         // a.setFechaNacimiento(null);
         try ( var calc = new CalculadoraCientificaImpl()) {
 

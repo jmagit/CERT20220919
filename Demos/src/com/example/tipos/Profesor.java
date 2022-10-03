@@ -12,7 +12,7 @@ public class Profesor extends Persona{
     private double salario;
     public Profesor() {}
     public Profesor(int id, String nombre, double salario) {
-        super(id, nombre, "Profe");
+        super(id, nombre, "En activo");
         this.salario = salario;
         // ...
     }
@@ -28,12 +28,19 @@ public class Profesor extends Persona{
 
     @Override
     public void setActivo(boolean valor) {
-        super.setActivo(valor); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.setActivo(valor);
     }
 
     
     @Override
     public void hacerExamen() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("Preparar preguntas");
     }
+
+    @Override
+    public String toString() {
+        return "Profesor{" + "id=" + getId() + ", nombre=" + getNombre() + '}';
+   }
+    
+    
 }

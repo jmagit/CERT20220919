@@ -4,25 +4,41 @@
  */
 package com.example.tipos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Javier
  */
 public class Alumno extends Persona {
-    private final double notas[];
+//    private final double notas[];
+    private final List<Double> notas;
+
+    public Alumno(int id, String nombre) {
+        super(id, nombre, "Matriculado");
+        notas = new ArrayList<>();
+    }
     
-    public Alumno(int asignaturas) {
-        notas = new double[asignaturas];
+    public Alumno(int id, String nombre, int asignaturas) {
+        super(id, nombre, "Matriculado");
+//        notas = new double[asignaturas];
+        notas = new ArrayList<>();
     }
     
     public double calificacion() {
         var calc = new CalculadoraImpl();
-        return calc.avg(notas);
+        return 0; // calc.avg((double[])notas.toArray());
     }
 
     @Override
     public void hacerExamen() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("Responder preguntas");
     }
-    
+ 
+    @Override
+    public String toString() {
+        return "Alumno{" + "id=" + getId() + ", nombre=" + getNombre() + '}';
+   }
+   
 }

@@ -13,7 +13,7 @@ import java.util.Optional;
  *
  * @author Javier
  */
-public abstract class Persona {
+public abstract class Persona implements Comparable<Persona>{
     public static final int EDAD_JUBILACION = 67;
     public final String estado ;
     
@@ -53,6 +53,14 @@ public abstract class Persona {
         if(valor <= 0)
             throw new IllegalArgumentException("El identificador deber mayor que 0");
         id = valor;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public boolean isActivo() {
@@ -99,6 +107,41 @@ public abstract class Persona {
     public void jubilate() {
         activo = false;
         fechaBaja = LocalDate.now();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+        if (!(obj instanceof Persona)) {
+            return false;
+        }
+        final Persona other = (Persona) obj;
+        return this.id == other.id;
+    }
+
+    @Override
+    public int compareTo(Persona o) {
+        return edad - o.edad;
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" + "estado=" + estado + ", id=" + id + ", nombre=" + nombre + ", activo=" + activo + '}';
     }
     
 }
