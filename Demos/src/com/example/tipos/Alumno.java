@@ -4,7 +4,10 @@
  */
 package com.example.tipos;
 
+import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,9 +29,23 @@ public class Alumno extends Persona {
         notas = new ArrayList<>();
     }
     
+    public Alumno(int id, String nombre, String fechaNacimiento, Double... notas) {
+        super(id, nombre, "Matriculado");
+        setFechaNacimiento(LocalDate.parse(fechaNacimiento));
+        this.notas = Arrays.asList(notas);
+    }
+    
     public double calificacion() {
         var calc = new CalculadoraImpl();
-        return 0; // calc.avg((double[])notas.toArray());
+        return calc.avg(notas.stream().mapToDouble(d -> d).toArray());
+    }
+    
+    public void addNota(double nota) {
+        notas.add(nota);
+    }
+    
+    public List<Double> getNotas() {
+        return notas;
     }
 
     @Override

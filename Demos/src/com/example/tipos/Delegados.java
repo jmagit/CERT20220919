@@ -4,6 +4,9 @@
  */
 package com.example.tipos;
 
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import org.w3c.dom.Text;
 
 /**
@@ -15,32 +18,51 @@ public class Delegados {
     String tabla[];
     Persona lista[];
     
-    abstract class Comparador {
-        abstract int compara(String s1, String s2);
+    @FunctionalInterface
+    interface Comparador {
+        int compara(String s1, String s2);
     }
 
 
     public void proceso() {
         final int desc = -1;
-        var comp = new Comparador() {
+        Comparador comp = new Comparador() {
             @Override
-            int compara(String s1, String s2) {
+            public int compara(String s1, String s2) {
                 return desc * s1.compareTo(s2);
             }
         };
+        comp = (a, b) -> a.compareTo(b);
         ordena(tabla, new Comparador() {
             @Override
-            int compara(String s1, String s2) {
+            public int compara(String s1, String s2) {
                 return s1.compareTo(s2);
             }
         });
-        
+        ordena(tabla, (a, b) -> a.compareTo(b));
+        Predicate<String> mayusculas = s -> s.toUpperCase() == s;
+        mayusculas = s -> { 
+            if(s == null) return false;
+            return s.toUpperCase() == s;
+        };
+        CalculadoraImpl calc = new CalculadoraCientificaImpl();
+        BiFunction<Double, Double, Double> op = (o1,o2) -> o1 + o2;
+        op = (o1,o2) -> o1 - o2;
+        op = calc::suma;
+        op = this.dameCalculo();
+        // ...
+        double d = op.apply(2.0, 2.0);
+        Consumer<String> consumer = System.out::print;
+    }
+    
+    BiFunction<Double, Double, Double> dameCalculo() {
+        return (o1,o2) -> o1 - o2;
     }
 
     public void proceso1() {
-        class ComparaBinAsc extends Comparador {
+        class ComparaBinAsc implements Comparador {
             @Override
-            int compara(String s1, String s2) {
+            public int compara(String s1, String s2) {
                 return s1.compareTo(s2);
             }
         }
@@ -49,9 +71,9 @@ public class Delegados {
         
     }
     public void proceso2() {
-        class ComparaTexrAsc extends Comparador {
+        class ComparaTexrAsc implements Comparador {
             @Override
-            int compara(String s1, String s2) {
+            public int compara(String s1, String s2) {
                 return s1.compareToIgnoreCase(s2);
             }
         }

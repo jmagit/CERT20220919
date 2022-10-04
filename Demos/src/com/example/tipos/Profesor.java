@@ -4,6 +4,8 @@
  */
 package com.example.tipos;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author Javier
@@ -14,6 +16,12 @@ public class Profesor extends Persona{
     public Profesor(int id, String nombre, double salario) {
         super(id, nombre, "En activo");
         this.salario = salario;
+        // ...
+    }
+    public Profesor(int id, String nombre, String fechaNacimiento, double salario) {
+        super(id, nombre, "En activo");
+        this.salario = salario;
+        setFechaNacimiento(LocalDate.parse(fechaNacimiento));
         // ...
     }
 
@@ -29,6 +37,14 @@ public class Profesor extends Persona{
     @Override
     public void setActivo(boolean valor) {
         super.setActivo(valor);
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
     }
 
     

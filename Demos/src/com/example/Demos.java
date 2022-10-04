@@ -1,6 +1,8 @@
 package com.example;
 
+import com.example.contracts.PersonaRepository;
 import com.example.exceptions.CalculadoraException;
+import com.example.infraestructure.PersonaRepositoryMock;
 import com.example.tipos.Alumno;
 import com.example.tipos.Calculadora;
 import com.example.tipos.CalculadoraCientificaImpl;
@@ -46,7 +48,7 @@ public class Demos {
      */
     public static void main(String[] args) {
         var m = new Demos();
-        m.colecciones();
+        m.consultas(new PersonaRepositoryMock());
 //        System.out.println("Salgo m.clase");
 //        System.runFinalization();
 //        System.out.println("Sigue sin finalizar");
@@ -55,6 +57,50 @@ public class Demos {
 
     }
     
+    public void consultas(PersonaRepository dao) {
+        try {
+            var lista = dao.getAll();
+            
+//            lista.stream()
+//                    .filter(e -> e instanceof Profesor)
+//                    .map(e -> (Profesor)e)
+//                    .sorted((a,b) -> a.getId() - b.getId())
+//                    .takeWhile(e -> e.getSalario() > 1500.0)
+//                    .forEach(e -> System.out.println(e.getId() + " " + e.getSalario()));
+////                .forEach(System.out::println);
+//             System.out.println(lista.stream().filter(e->e instanceof Profesor).findAny().get());
+//             System.out.println(
+//                     lista.stream()
+//                             .filter(e->e instanceof Profesor)
+//                             .mapToDouble(e -> ((Profesor)e).getSalario())
+//                             .sum());
+//             
+//            System.out.println(lista.stream()
+//                    .filter(e -> e instanceof Alumno)
+//                    .flatMap(e -> ((Alumno)e).getNotas().stream())
+//                    .reduce(0.0, (a, nota) -> a + nota));
+////                    .forEach(System.out::println);
+            int page = 2, rows = 5;
+//            lista.stream()
+//                    .filter(e -> e instanceof Alumno)
+//                    .flatMap(e -> ((Alumno)e).getNotas().stream())
+//                    .sorted((a, b) -> (int)(b - a))
+//                    .skip(page * rows)
+//                    .limit(rows)
+//                    .forEach(System.out::println);
+            var rslt = lista.stream()
+                    .filter(e -> e instanceof Alumno)
+                    .flatMap(e -> ((Alumno)e).getNotas().stream())
+                    .sorted((a, b) -> (int)(b - a))
+                    .skip(page * rows)
+                    .limit(rows)
+                    .toList();
+            rslt.forEach(System.out::println);
+                     
+        } catch (Exception ex) {
+            Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void colecciones() {
         //Set<Persona> lista = new HashSet<>();
         List<Persona> lista = new CopyOnWriteArrayList<>();
@@ -77,8 +123,6 @@ public class Demos {
         store.put(33,new Profesor(3, "Fulanito",2000));
         store.put(33, new Alumno(2, "Menganito"));
         out.println(store.get(33));
-      
-           
     }
 
     <T> T demo(T param) {
