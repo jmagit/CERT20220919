@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  *
@@ -32,7 +33,7 @@ public class Alumno extends Persona {
     public Alumno(int id, String nombre, String fechaNacimiento, Double... notas) {
         super(id, nombre, "Matriculado");
         setFechaNacimiento(LocalDate.parse(fechaNacimiento));
-        this.notas = Arrays.asList(notas);
+        this.notas = new ArrayList<> (Stream.of(notas).toList());
     }
     
     public double calificacion() {

@@ -5,6 +5,7 @@
 package com.example.tipos;
 
 import com.example.exceptions.DemosException;
+import com.example.exceptions.InvalidDataException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
@@ -98,9 +99,9 @@ public abstract class Persona implements Comparable<Persona>{
         assert edad >= 0;
     }
     
-    public int getEdad() throws Exception {
+    public int getEdad() {
         if(edad == -1)
-            throw new Exception("No conozco la fecha de nacimiento");
+            throw new InvalidDataException("No conozco la fecha de nacimiento");
         return edad;
     }
     

@@ -20,6 +20,7 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,8 +28,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 /**
  * Clase principal para las demos
@@ -37,8 +41,9 @@ import java.util.logging.Logger;
  * @version 0.1
  */
 public class Demos {
+
     private static final PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-    
+
     private int algo;
 
     /**
@@ -56,11 +61,11 @@ public class Demos {
 //        System.out.println("Mando recolectar la basura");
 
     }
-    
+
     public void consultas(PersonaRepository dao) {
         try {
             var lista = dao.getAll();
-            
+
 //            lista.stream()
 //                    .filter(e -> e instanceof Profesor)
 //                    .map(e -> (Profesor)e)
@@ -80,7 +85,7 @@ public class Demos {
 //                    .flatMap(e -> ((Alumno)e).getNotas().stream())
 //                    .reduce(0.0, (a, nota) -> a + nota));
 ////                    .forEach(System.out::println);
-            int page = 2, rows = 5;
+            int page = 0, rows = 3;
 //            lista.stream()
 //                    .filter(e -> e instanceof Alumno)
 //                    .flatMap(e -> ((Alumno)e).getNotas().stream())
@@ -88,39 +93,114 @@ public class Demos {
 //                    .skip(page * rows)
 //                    .limit(rows)
 //                    .forEach(System.out::println);
-            var rslt = lista.stream()
-                    .filter(e -> e instanceof Alumno)
-                    .flatMap(e -> ((Alumno)e).getNotas().stream())
-                    .sorted((a, b) -> (int)(b - a))
-                    .skip(page * rows)
-                    .limit(rows)
-                    .toList();
-            rslt.forEach(System.out::println);
-                     
+//            var rslt = lista.stream()
+//                    .filter(e -> e instanceof Alumno)
+//                    .flatMap(e -> ((Alumno) e).getNotas().stream())
+//                    .sorted((a, b) -> (int) (b - a))
+//                    .skip(page * rows)
+//                    .limit(rows)
+//                    .toList();
+//            rslt.forEach(System.out::println);
+//            lista.stream().filter(e -> e.getEdad() < 30).forEach(System.out::println);
+//            boolean soloAlumnos = true, jovenes = false, paginado = true;
+//            String orden = "edad";
+//            final int asc = -1;
+//            var query = lista.stream();
+//            if (soloAlumnos) {
+//                query = query.filter(e -> e instanceof Alumno);
+//            }
+//            if (jovenes) {
+//                query = query.filter(e -> e.getEdad() < 30);
+//            }
+//            switch (orden) {
+//                case "id":
+//                    query = query.sorted((a, b) -> asc * (a.getId() - b.getId()));
+//                    break;
+//                case "nombre":
+//                    query = query.sorted((a, b) -> asc * a.getNombre().compareToIgnoreCase(b.getNombre()));
+//                    break;
+//                case "edad":
+//                    query = query.sorted((a, b) -> asc * (a.getEdad()- b.getEdad()));
+//                    break;
+//            }
+//            if (paginado) {
+//                query = query.skip(page * rows).limit(rows);
+//            }
+//            var resultado = query.toList();
+//            resultado.forEach(e -> System.out.println(e.toString() + " Edad: " + e.getEdad()));
+            //query.skip((page + 1) * rows).limit(rows).forEach(e -> System.out.println(e.toString() + " Edad: " + e.getEdad()));
+//            lista.stream()
+//                .filter(e -> e instanceof Alumno)
+//                .map(e -> (Alumno)e)
+//                .forEach(e -> System.out.println(e.toString() + " Notas: " + e.calificacion()));
+//            System.out.println();
+//            lista.stream()
+//                .filter(e -> e instanceof Alumno)
+//                .map(e -> (Alumno)e)
+//                .parallel()
+//                .peek(e -> e.addNota(0.0))
+//                .sequential()
+//                .sorted((a,b) -> (int) (b.calificacion() - a.calificacion()))
+//                .forEach(e -> System.out.println(e.toString() + " Notas: " + e.calificacion()));
+//            System.out.println();
+//            lista.stream()
+//                .filter(e -> e instanceof Alumno)
+//                .map(e -> (Alumno)e)
+//                .forEach(e -> System.out.println(e.toString() + " Notas: " + e.calificacion()));
+              List<Integer> lst = List.of(1,2,3,4,5,6,7,8,9,10,11,12,13,14);
+              lst.parallelStream().map(e -> e * e).sequential().sorted()
+                      .forEach(e -> System.out.print(e + " "));
+//            resultado = query.toList();
+//            var rslt2 = lista.stream()
+//                    .filter(new Predicate<Persona>() {
+//                        @Override
+//                        public boolean test(Persona e) {
+//                            return e instanceof Alumno;
+//                        }
+//                    })
+//                    .flatMap(new Function<Persona, Stream<Double>>() {
+//                        @Override
+//                        public Stream<Double> apply(Persona e) {
+//                            return ((Alumno) e).getNotas().stream();
+//                        }
+//                    })
+//                    .sorted(new Comparator<Double>() {
+//                        @Override
+//                        public int compare(Double a, Double b) {
+//                            return (int) (b - a);
+//                        }
+//                    })
+//                    .skip(page * rows)
+//                    .limit(rows)
+//                    .toList();
         } catch (Exception ex) {
             Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void colecciones() {
         //Set<Persona> lista = new HashSet<>();
         List<Persona> lista = new CopyOnWriteArrayList<>();
         lista.add(new Alumno(1, "Pepito"));
         lista.add(new Alumno(2, "Fulanito"));
-        lista.add(0,new Profesor(3, "Fulanito",2000));
-        if(lista.add(new Alumno(2, "Menganito")))
+        lista.add(0, new Profesor(3, "Fulanito", 2000));
+        if (lista.add(new Alumno(2, "Menganito"))) {
             out.println("Añadido");
-        
+        }
+
         System.out.println("Lista: " + lista.size());
-        for (Persona p: lista)
+        for (Persona p : lista) {
             System.out.println(p);
-        if(lista.contains(new Alumno(2, "Menganitooooo")))
-             out.println("Si lo tiene");
+        }
+        if (lista.contains(new Alumno(2, "Menganitooooo"))) {
+            out.println("Si lo tiene");
+        }
         out.println(lista.get(2));
-        
+
         Map<Integer, Persona> store = new TreeMap<>();
         store.put(1, new Alumno(1, "Pepito"));
         store.put(2, new Alumno(2, "Fulanito"));
-        store.put(33,new Profesor(3, "Fulanito",2000));
+        store.put(33, new Profesor(3, "Fulanito", 2000));
         store.put(33, new Alumno(2, "Menganito"));
         out.println(store.get(33));
     }
@@ -136,15 +216,16 @@ public class Demos {
     public String cadenas(int longitud) {
 //        String s = "";
         StringBuilder sb = new StringBuilder("");
-        for(int i = 0; i < longitud; i++) {
+        for (int i = 0; i < longitud; i++) {
 //            s += " ";
             sb.append(" ");
         }
         return sb.toString();
     }
+
     public void genericos() {
         var s = cadenas(100);
-        
+
 //        Genericos.Elemento[] lista = new Genericos.Elemento[10];
 //        lista[0] = new Genericos.Elemento(8, "Barcelona");
 //        lista[1] = new Genericos.Elemento(28, "Madrid");
@@ -159,7 +240,6 @@ public class Demos {
 //        e = new Genericos.Elemento<Integer, String>("28", "Madrid");
 //        String s = demo("Hola", String.class);
 //        int i = demo("1", Integer.class);
-
 //        Genericos.Lista<Persona> lst = new Genericos.Lista<Persona>();
         Genericos.Lista<Alumno> lst = new Genericos.Lista<>();
         lst.add(new Alumno(2, "Pepito", 5));
@@ -178,7 +258,7 @@ public class Demos {
 //                c.setFechaNacimiento(LocalDate.of(2000, 12, 1));
             var fn = c.dameFechaNacimiento();
 //            if (c.hasFechaNacimiento()) {
-                var fn2 = c.getFechaNacimiento();
+            var fn2 = c.getFechaNacimiento();
 //            }
             if (fn.isEmpty()) {
                 System.out.println("No lo se");
@@ -202,7 +282,7 @@ public class Demos {
                 Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-            System.out.println(((CalculadoraImpl) calc).divide(0, 0));
+                System.out.println(((CalculadoraImpl) calc).divide(0, 0));
             } catch (CalculadoraException ex) {
                 Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
             }

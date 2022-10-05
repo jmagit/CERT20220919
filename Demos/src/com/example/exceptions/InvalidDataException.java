@@ -8,7 +8,7 @@ package com.example.exceptions;
  *
  * @author Javier
  */
-public class InvalidDataException extends Exception {
+public class InvalidDataException extends RuntimeException {
     private static final String LITERAL = "Datos invalidos";
     
     public InvalidDataException() {
