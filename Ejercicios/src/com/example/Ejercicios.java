@@ -29,17 +29,17 @@ public class Ejercicios {
 //        app.juego();
 //        app.juegoConClase();
 //        app.decode("3+4+3,4-7*1=");
-        try {
-//            app.calcula("3+4+3,4-7*1=");
-//            app.calcula("0,1+0,2+0,7-0,9=");
-            app.calculaList("3+4+3,4-7*1=");
-            app.calculaList("25+43-37*88/9,9=");
-        } catch (CalculadoraException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-//        app.naipes();
+//        try {
+////            app.calcula("3+4+3,4-7*1=");
+////            app.calcula("0,1+0,2+0,7-0,9=");
+//            app.calculaList("3+4+3,4-7*1=");
+//            app.calculaList("25+43-37*88/9,9=");
+//        } catch (CalculadoraException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        app.naipes();
     }
 
     /**
@@ -81,16 +81,16 @@ public class Ejercicios {
         try {
             Juego<String> juego = new com.example.juegos.numero.JuegoDelNumero();
             juego.inicializar();
-//            ((com.example.juegos.numero.JuegoDelNumero) juego).addNotificaListener(arg -> {
-//                out.println("NOTIFICA: " + arg.getMsg());
-//                out.println("¿Qieres cancelar?:");
-//                arg.setCancel(teclado.nextLine().equals("s"));
-//            });
+            ((com.example.juegos.numero.JuegoDelNumero) juego).addNotificaListener(arg -> {
+                out.println("NOTIFICA: " + arg.getMsg());
+                out.println("¿Qieres cancelar?:");
+                arg.setCancel("s".equals(teclado.nextLine()));
+            });
             for (int intentos = 1; intentos <= 10; intentos++) {
                 out.print("Dame tu número del 1 al 100 (" + (juego.getJugada() + 1) + " de 10): ");
                 try {
                     juego.jugada(teclado.nextLine());
-                    out.println(juego.getResultado());
+//                    out.println(juego.getResultado());
                     if (juego.getFinalizado()) {
                         break;
                     }

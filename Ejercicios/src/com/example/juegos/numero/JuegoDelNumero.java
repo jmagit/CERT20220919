@@ -30,10 +30,6 @@ public class JuegoDelNumero implements Juego<String> {
             return msg;
         }
 
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-
         public boolean isCancel() {
             return cancel;
         }
