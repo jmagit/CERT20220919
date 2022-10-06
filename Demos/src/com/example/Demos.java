@@ -7,6 +7,7 @@ import com.example.tipos.Alumno;
 import com.example.tipos.Calculadora;
 import com.example.tipos.CalculadoraCientificaImpl;
 import com.example.tipos.CalculadoraImpl;
+import com.example.tipos.CicloDeVida;
 import com.example.tipos.Contable;
 import com.example.tipos.DiasDeLaSemana;
 import com.example.tipos.DiasLaborables;
@@ -15,11 +16,16 @@ import com.example.tipos.Genericos;
 import com.example.tipos.Grafico;
 import com.example.tipos.GraficoImprimible;
 import com.example.tipos.Persona;
+import com.example.tipos.PositiveOrZero;
 import com.example.tipos.Profesor;
 import java.io.PrintStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -53,13 +59,51 @@ public class Demos {
      */
     public static void main(String[] args) {
         var m = new Demos();
-        m.consultas(new PersonaRepositoryMock());
+        System.out.println("Inicio la aplicion");
+        m.ciclo();
+//        m.consultas(new PersonaRepositoryMock());
 //        System.out.println("Salgo m.clase");
 //        System.runFinalization();
 //        System.out.println("Sigue sin finalizar");
 //        System.gc();
 //        System.out.println("Mando recolectar la basura");
 
+    }
+
+    public void ciclo() {
+//        CicloDeVida.cotilla();
+//        System.out.println("Sigo");
+//        //CicloDeVida c;
+//        Object o = new CicloDeVida();
+//        if(o instanceof CicloDeVida) {
+//            System.out.println("Lo es");
+//        }
+//        System.out.println(o.getClass().getName());
+//        System.out.println(o);
+        String nombre = "com.example.tipos.CicloDeVida";
+//        nombre = "com.example.infraestructure.PersonaRepositoryMock";
+        try {
+            Class tipo = Class.forName(nombre);
+            System.out.println(tipo.getName());
+            Stream.of(tipo.getMethods()).forEach(m -> System.out.println(m.getName()));
+//            Stream.of(tipo.getDeclaredMethods()).forEach(m -> System.out.println(m.getName()));
+            Stream.of(tipo.getDeclaredFields()).forEach(m -> System.out.println("#" + m.getName() + "#"));
+            Object o = tipo.newInstance();
+//            Method mm = tipo.getMethod("setId", int.class);
+//            mm.invoke(o, (int) 88);
+//            Method m = tipo.getMethod("getId");
+//            System.out.println(o.getClass().getName() + " id: " + m.invoke(o));
+            Field f = tipo.getDeclaredField("id");
+            f.setAccessible(true);
+            Annotation a = f.getDeclaredAnnotation(PositiveOrZero.class);
+            f.set(o, -69);
+            if(a != null && (int)f.get(o) < 0 ) {
+                    System.out.println("No es positivo");
+            }
+            System.out.println(o.getClass().getName() + " id: " + f.get(o));
+        } catch (Exception ex) {
+            Logger.getLogger(Demos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void consultas(PersonaRepository dao) {
@@ -147,9 +191,9 @@ public class Demos {
 //                .filter(e -> e instanceof Alumno)
 //                .map(e -> (Alumno)e)
 //                .forEach(e -> System.out.println(e.toString() + " Notas: " + e.calificacion()));
-              List<Integer> lst = List.of(1,2,3,4,5,6,7,8,9,10,11,12,13,14);
-              lst.parallelStream().map(e -> e * e).sequential().sorted()
-                      .forEach(e -> System.out.print(e + " "));
+            List<Integer> lst = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+            lst.parallelStream().map(e -> e * e).sequential().sorted()
+                    .forEach(e -> System.out.print(e + " "));
 //            resultado = query.toList();
 //            var rslt2 = lista.stream()
 //                    .filter(new Predicate<Persona>() {

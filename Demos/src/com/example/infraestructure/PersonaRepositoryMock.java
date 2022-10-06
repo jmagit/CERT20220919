@@ -35,6 +35,7 @@ public class PersonaRepositoryMock implements PersonaRepository {
         store.put(6, new Alumno(6, "Pedrito", "2006-12-31", 5.0, 5.0));
         store.put(2, new Profesor(2, "Suplente", "1990-05-17", 1100));        
         store.put(7, new Alumno(7, "Maripili", "1994-10-12", 6.0, 6.0, 8.0));
+        System.out.println("Cargo com.example.infraestructure.PersonaRepositoryMock");
     }
 
     @Override
