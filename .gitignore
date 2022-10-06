@@ -59,3 +59,16 @@ build/
 .vscode/
 /Demos/nbproject/private/
 /Demos/dist/
+/Ejercicios/nbproject/private/
+/com.examples.main/nbproject/private/
+/com.examples.utils/nbproject/private/
+/com.examples.domains/nbproject/private/
+/com.examples.contracts/nbproject/private/
+/com.examples.infraestructure/nbproject/private/
+/com.examples.domains.services/nbproject/private/
+/com.examples.utils/dist/
+/com.examples.domains/dist/
+/com.examples.contracts/dist/
+/com.examples.infraestructure/dist/
+/com.examples.domains.services/dist/
+/com.examples.main/dist/
